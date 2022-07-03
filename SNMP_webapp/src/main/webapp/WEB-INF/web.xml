@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	 version="3.1">
+    <context-param>
+        <param-name>db_URL</param-name>
+        <param-value>jdbc:postgresql://bic2b6bup02t0oo5kmbg-postgresql.services.clever-cloud.com:5432/bic2b6bup02t0oo5kmbg</param-value>
+    </context-param>
+    <context-param>
+        <param-name>db_username</param-name>
+        <param-value>uoovw5apdysjdbrvhmnq</param-value>
+    </context-param>
+    <context-param>
+        <param-name>db_password</param-name>
+        <param-value>tl0ABe0nGHni0MWZIFb2</param-value>
+    </context-param>
+    <listener>
+        <description>ServletContextListener</description>
+        <listener-class>com.iti.snmp.database.DatabaseListener</listener-class>
+    </listener>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+</web-app>
