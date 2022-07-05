@@ -170,7 +170,7 @@
                                 </div>
                                 <div class="ms-auto text-end">
                                     <a id="resolve_btn" onclick="clickHandler(<%=t.getNode_id()%>, '<%=t.getTrap_type() %>')" data-bs-toggle="modal" data-bs-target="#resolveStaffModal" class="btn btn-link text-success px-3 mb-0"  href="#"><i class="material-icons text-sm me-2">edit</i>Resolve</a>
-                                    <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="javascript:;"><i class="material-icons text-sm me-2">delete</i>Delete</a>
+<!--                                    <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="javascript:;"><i class="material-icons text-sm me-2">delete</i>Delete</a>-->
                                 </div>
                             </li>
                             <script>
@@ -178,9 +178,6 @@
 
                                     $("#passing_id").html(id);
                                     $("#passing_trap").html(type);
-                                    
-                        
-
                                 }
 
                             </script>
@@ -189,7 +186,7 @@
                     </div>
                 </div>
             </div>
-                                                       <!-- Modal -->
+            <!-- Modal -->
             <div class="modal fade" id="resolveStaffModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -243,8 +240,6 @@
                     </div>
                 </div>
             </div>
-                        
-
         </div>
    
         <footer class="footer py-4  ">

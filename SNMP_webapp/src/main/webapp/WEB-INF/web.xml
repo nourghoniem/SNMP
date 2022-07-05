@@ -23,12 +23,14 @@
     <servlet-mapping>
         <servlet-name>resolveTrapServlet</servlet-name>
         <url-pattern>/resolveTrapServlet</url-pattern>
-        <servlet-name>Registeration</servlet-name>
-        <servlet-class>com.iti.snmp.admin.Registeration</servlet-class>
-    </servlet>
+    </servlet-mapping>
     <servlet>
         <servlet-name>Login</servlet-name>
         <servlet-class>com.iti.snmp.admin.Login</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Registeration</servlet-name>
+        <servlet-class>com.iti.snmp.admin.Registeration</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Registeration</servlet-name>
