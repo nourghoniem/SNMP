@@ -9,7 +9,7 @@ package com.iti.snmp.traps;
  * @author nour
  */
 public class Trap {
-    
+    private int node_id;
     private String node_name;
     private String ip;
     private String trap_type;
@@ -17,7 +17,8 @@ public class Trap {
     
     public Trap(){}
 
-    public Trap(String node_name, String ip, String trap_type, String time_issued) {
+    public Trap(Integer node_id, String node_name, String ip, String trap_type, String time_issued) {
+        this.node_id = node_id;
         this.node_name = node_name;
         this.ip = ip;
         this.trap_type = trap_type;
@@ -55,6 +56,14 @@ public class Trap {
 
     public void setTime_issued(String time_issued) {
         this.time_issued = time_issued;
+    }
+
+    public int getNode_id() {
+        return node_id;
+    }
+
+    public void setNode_id(int node_id) {
+        this.node_id = node_id;
     }
 
     
