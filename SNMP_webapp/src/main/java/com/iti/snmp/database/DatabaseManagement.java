@@ -27,4 +27,8 @@ public class DatabaseManagement {
         }
     }
 
+    public Connection getConn() {
+        return conn;
+    }
+
 }
