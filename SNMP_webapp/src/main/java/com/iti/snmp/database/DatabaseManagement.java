@@ -27,32 +27,4 @@ public class DatabaseManagement {
         }
     }
 
-    public Connection getConn() {
-        return conn;
-    }
-
-    public Statement getStmt() {
-        return stmt;
-    }
-
-    public void setStmt(Statement stmt) {
-        this.stmt = stmt;
-    }
-
-    public ResultSet getRs() {
-        return rs;
-    }
-
-    public void setRs(ResultSet rs) {
-        this.rs = rs;
-    }
-
-    public PreparedStatement getPst() {
-        return pst;
-    }
-
-    public void setPst(PreparedStatement pst) {
-        this.pst = pst;
-    }
-
 }
