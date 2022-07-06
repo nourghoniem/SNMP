@@ -9,6 +9,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -18,6 +21,9 @@ public class HandlingAdmin {
 
     private static final DatabaseManagement db = new DatabaseManagement();
     private static Connection conn = db.getConn();
+    private Statement stmt;
+    private ResultSet rs;
+    private PreparedStatement pst;
 
     public static void RegisterAdmin(String username, String email, String password, String phoneNumber) throws SQLException {
         try {
@@ -79,6 +85,28 @@ public class HandlingAdmin {
         }
         admin.setAdminId(-1);
         return admin;
+    }
+
+    public List<Admin> getAdmins() {
+        ArrayList<Admin> admins = new ArrayList<Admin>();
+        Admin admin = new Admin();
+        try {
+
+            stmt = conn.createStatement();
+            String SQL = "SELECT * from admin;";
+            rs = stmt.executeQuery(SQL);
+
+            while (rs.next()) {
+                admin.setEmail(rs.getString("email"));
+
+                admin.setPhone(rs.getString("phone"));
+                admin.setName(rs.getString("name"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return admins;
     }
 
 }
