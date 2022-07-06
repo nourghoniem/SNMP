@@ -155,10 +155,15 @@
                 </div>
             </div>
         </nav>
+        <div id="passing_history_id" style="display:none;"></div>
+        <div id="passing_history_trap" style="display:none;"></div>
         <!-- End Navbar -->
         <div class="container-fluid py-4">
+           
             <div class="row">
+               
                 <div class="col-12">
+                     
                     <div class="card my-4">
                         <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                             <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
@@ -195,10 +200,10 @@
                                             </td>
                                             <td>
                                                 <p class="text-xs font-weight-bold mb-0"><%= t.getTrap_type()%></p>
-                       
+
                                             </td>
                                             <td class="align-middle text-center text-sm">
-                                                <span class="badge badge-sm bg-gradient-success"><%= t.getStatus()%></span>
+                                                <span class="badge badge-sm bg-gradient-success">RESOLVED</span>
                                             </td>
                                             <td class="align-middle text-center">
                                                 <span class="text-secondary text-xs font-weight-bold"><%= t.getAction()%></span>
@@ -207,17 +212,82 @@
                                                 <span class="text-secondary text-xs font-weight-bold"><%= t.getTime_issued()%></span>
                                             </td>
                                             <td class="align-middle">
-                                                <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="javascript:;"><i class="material-icons text-sm me-2">delete</i>Delete</a>
+                                                <a onclick="clickHandler(<%=t.getNode_id()%>, '<%=t.getTrap_type()%>')" data-bs-toggle="modal" data-bs-target="#deleteStaffModal" class="btn btn-link text-danger text-gradient px-3 mb-0" href="#"><i class="material-icons text-sm me-2">delete</i>Delete</a>
 
                                             </td>
+
                                         </tr>
-                                        <% }%>
+                                    <script>
+                                        function clickHandler(id, type) {
+                                         
+                                          $("#passing_history_id").html(id);
+                                          $("#passing_history_trap").html(type);
+                                      
+                                      
+                                 
+                                        }
+
+                                    </script>
+                                    <% }%>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
+                                                <!-- Modal -->
+            <div class="modal fade" id="deleteStaffModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Remove from History</h5>
+                           
+                        </div>
+                        <form action="" method= "POST">
+                            <div class="modal-body">
+                                <div>
+                                    Are you sure you want to delete this? This action cannot be undone.
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" id="deleteHistorySubmit" name="deleteHistory" class="btn btn-danger">Delete</button>
+                            </div>
+                        </form>
+                        <script>
+
+                            $("#deleteHistorySubmit").click(function (event) {
+                                event.preventDefault();
+                                var id = $("#passing_history_id").html();
+                                var type = $("#passing_history_trap").html();
+                                $.ajax({
+                                    type: "POST",
+                                    url: "${pageContext.request.contextPath}/deleteHistoryServlet",
+                                    data: {
+                                        id: id,
+                                        type: type
+
+                                    },
+                                    success: function (data) {
+
+                                    },
+                                    error: function (resp) {
+                                        alert("Error");
+                                    }
+                                });
+                                $(document).ajaxStop(function () {
+                                    window.location.reload();
+                                });
+
+
+
+                            });
+
+                        </script>
+                    </div>
+                </div>
+            </div>
             </div>
 
             <footer class="footer py-4  ">

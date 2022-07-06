@@ -42,7 +42,7 @@ public class HistoryHandler {
             rs = stmt.executeQuery(SQL);
 
             while (rs.next()) {
-                action_desc = rs.getString(" description ");
+                action_desc = rs.getString("description");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -74,6 +74,22 @@ public class HistoryHandler {
         }
 
         return history;
+    }
+    
+    public void removeFromHistory(Integer node_id, Integer trap_id){
+        try {
+       
+            pst = conn.prepareStatement("DELETE FROM history where node_id = ? AND trap_id = ?");
+            pst.setInt(1, node_id);
+            pst.setInt(2, trap_id);
+            int rows = pst.executeUpdate();
+            pst.close();
+            System.out.print(rows);
+        } catch (Exception e) {
+            e.getMessage();
+        }
+    
+    
     }
 
 }
