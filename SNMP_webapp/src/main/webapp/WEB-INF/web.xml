@@ -17,12 +17,24 @@
         <listener-class>com.iti.snmp.database.DatabaseListener</listener-class>
     </listener>
     <servlet>
-        <servlet-name>Registeration</servlet-name>
-        <servlet-class>com.iti.snmp.admin.Registeration</servlet-class>
+        <servlet-name>resolveTrapServlet</servlet-name>
+        <servlet-class>com.iti.snmp.traps.resolveTrapServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>deleteHistoryServlet</servlet-name>
+        <servlet-class>com.iti.snmp.history.deleteHistoryServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>resolveTrapServlet</servlet-name>
+        <url-pattern>/resolveTrapServlet</url-pattern>
+    </servlet-mapping>
     <servlet>
         <servlet-name>Login</servlet-name>
         <servlet-class>com.iti.snmp.admin.Login</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Registeration</servlet-name>
+        <servlet-class>com.iti.snmp.admin.Registeration</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Registeration</servlet-name>
@@ -31,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>deleteHistoryServlet</servlet-name>
+        <url-pattern>/deleteHistoryServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

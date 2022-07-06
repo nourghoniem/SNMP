@@ -37,15 +37,16 @@ public class TrapHandler {
         traps = new ArrayList<Trap>();
            try {
             stmt = conn.createStatement();
-            String SQL = "SELECT n.name, n.ip, t.description, m.timestamp_snmp FROM node as n inner join history as m ON n.id = m.node_id inner join trap as t on t.id = m.trap_id where n.admin_id = 1;";
+            String SQL = "SELECT m.node_id, n.name, n.ip, t.description, m.timestamp_snmp FROM node as n inner join history as m ON n.id = m.node_id inner join trap as t on t.id = m.trap_id where n.admin_id = 1 AND status = 'f';";
             rs = stmt.executeQuery(SQL);
 
             while (rs.next()) {
+                Integer node_id = rs.getInt("node_id");
                 String node_name = rs.getString("name");
                 String ip = rs.getString("ip");
                 String trap_desc = rs.getString("description");
                 String trap_timestamp = rs.getString("timestamp_snmp");
-                Trap trap = new Trap(node_name, ip, trap_desc, trap_timestamp);
+                Trap trap = new Trap(node_id, node_name, ip, trap_desc, trap_timestamp);
                 traps.add(trap);
             }
         } catch (SQLException e) {
@@ -55,5 +56,34 @@ public class TrapHandler {
       return traps;
     }
     
+    public int getTrapid(String type){
+        Integer trap_id = 0;
+        try {
+            stmt = conn.createStatement();
+            String SQL = "SELECT t.id FROM trap as t inner join history as m ON t.id = m.trap_id where t.description = '"+type+"';";
+            rs = stmt.executeQuery(SQL);
+
+            while (rs.next()) {
+                trap_id = rs.getInt("id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return trap_id;
+    }
     
+    public void updateStatus(int id, String trap_type){
+         try {
+            Integer trap_id = getTrapid(trap_type);
+            pst = conn.prepareStatement("UPDATE history SET status=? where node_id = ? AND trap_id = ?");
+            pst.setBoolean(1, Boolean.TRUE);
+            pst.setDouble(2, id);
+            pst.setInt(3, trap_id);
+            int rows = pst.executeUpdate();
+            pst.close();
+            System.out.print(rows);
+        } catch (Exception e) {
+            e.getMessage();
+        }
+    }
 }

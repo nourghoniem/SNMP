@@ -7683,7 +7683,7 @@ ytd-grid-video-renderer .PblLabel { position: absolute !important; bottom: 8px !
     }
     function chk(msg){
            if( msg=="logged successfully"){
-               window.location.href = 'dashboard.html';
+               window.location.href = 'Admin/dashboard.jsp';
                
     }
     else{
