@@ -4,15 +4,17 @@
     Author     : nour
 --%>
 
+<%@page import="com.iti.snmp.nodes.Node"%>
+<%@page import="com.iti.snmp.nodes.NodeHandler"%>
+<%@page import="com.iti.snmp.admin.Admin"%>
+<%@page import="com.iti.snmp.admin.HandlingAdmin"%>
 <%@page import="com.iti.snmp.history.History"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.List"%>
 <%@page import="com.iti.snmp.history.HistoryHandler"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    Integer id = (Integer) session.getAttribute("adminId");
-    HistoryHandler historyHandler = new HistoryHandler();
-    List<History> history = historyHandler.getHistory(id,"t");
+  List<Node>nodes=NodeHandler.getNodes();
 
 %>
 <!--
@@ -41,9 +43,8 @@
     <%@include file="sidebar.jsp" %>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
-   <%@include file="topbar.jsp" %>
-        <div id="passing_history_id" style="display:none;"></div>
-        <div id="passing_history_trap" style="display:none;"></div>
+       
+       <%@include file="topbar.jsp" %>
         <!-- End Navbar -->
         <div class="container-fluid py-4">
            
@@ -54,7 +55,7 @@
                     <div class="card my-4">
                         <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                             <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                                <h6 class="text-white text-capitalize ps-3">History</h6>
+                                <h6 class="text-white text-capitalize ps-3">Admins</h6>
                             </div>
                         </div>
                         <div class="card-body px-0 pb-2">
@@ -63,55 +64,55 @@
                                     <thead>
                                         <tr>
                                             <th style="display:none;"></th>
-                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Node</th>
-                                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Trap</th>
-                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Status</th>
-                                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
-                                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Issued</th>
-                                            <th class="text-secondary opacity-7"></th>
+                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 align-middle text-center ">Name</th>
+                                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 align-middle text-center ">IP</th>
+                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 align-middle text-center ">Description</th>
+                                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 align-middle text-center ">Admin Email</th>
+                                         
+                                               
+                                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 align-middle text-center">Action needed</th>
+                                                                                   
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <%                                            for (History t : history) {
+                                        <%                                            for (Node node : nodes) {
                                         %>
 
                                         <tr>
-                                            <td style="display:none;"><input type="hidden" value="<%out.println(t.getHistory_id());%>" id="rows"/></td>
+                                            
                                             <td>
-                                                <div class="d-flex px-2 py-1">
-
-                                                    <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm"><%= t.getNode_name()%></h6>
-                                                    </div>
-                                                </div>
+                                                
+                                                        <h6 class="align-middle text-center text-sm"><%=node.getName()%></h6>
+                                                 
+                                               
                                             </td>
                                             <td>
-                                                <p class="text-xs font-weight-bold mb-0"><%= t.getTrap_type()%></p>
+                                                 <h6 class="align-middle text-center text-sm"><%= node.getNodeIp()%></h6>
+                                              
 
                                             </td>
                                             <td class="align-middle text-center text-sm">
-                                                <span class="badge badge-sm bg-gradient-success">RESOLVED</span>
+                                                 <h6 class="mb-0 text-sm"><%=node.getDescription()%></h6>
+                                               
                                             </td>
                                             <td class="align-middle text-center">
-                                                <span class="text-secondary text-xs font-weight-bold"><%= t.getAction()%></span>
+                                                 <h6 class="mb-0 text-sm"><%=node.getAdminName()%></h6>
+                                              
                                             </td>
-                                            <td class="align-middle text-center">
-                                                <span class="text-secondary text-xs font-weight-bold"><%= t.getTime_issued()%></span>
+                                            
+                                          <% if (node.getStatus().equalsIgnoreCase("red")){%>
+                                                   <td class="align-middle text-center">
+                                                       <h6 class="mb-0 text-sm"><button class="btn-outline btn-danger border-radius-lg">Check traps to be resolved </button></h6>
+     
                                             </td>
-                                            <td class="align-middle">
-                                                <a onclick="clickHandler(<%=t.getHistory_id()%>)" data-bs-toggle="modal" data-bs-target="#deleteStaffModal" class="btn btn-link text-danger text-gradient px-3 mb-0" href="#"><i class="material-icons text-sm me-2">delete</i>Delete</a>
-
+                                            <%}else{%>
+                                                <td class="align-middle text-center">
+                                                       <h6 class="mb-0 text-sm">No action needed</h6>
+     
                                             </td>
-
+                                            <%}%>
                                         </tr>
-                                    <script>
-                                        function clickHandler(id) {
-                                         
-                                          $("#passing_history_id").html(id);
-                                       
-                                        }
-
-                                    </script>
+                                    
                                     <% }%>
                                     </tbody>
                                 </table>
@@ -144,13 +145,14 @@
                             $("#deleteHistorySubmit").click(function (event) {
                                 event.preventDefault();
                                 var id = $("#passing_history_id").html();
-                               
+                                var type = $("#passing_history_trap").html();
                                 $.ajax({
                                     type: "POST",
                                     url: "${pageContext.request.contextPath}/deleteHistoryServlet",
                                     data: {
-                                        id: id
-                                     
+                                        id: id,
+                                        type: type
+
                                     },
                                     success: function (data) {
 

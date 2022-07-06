@@ -47,13 +47,14 @@ public class HistoryHandler {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-       return action_desc;
+        return action_desc;
     }
 
-    public List<History> getHistory(Integer admin_id) {
+    public List<History> getHistory(Integer admin_id, String st) {
         history = new ArrayList<History>();
         try {
             stmt = conn.createStatement();
+
             String SQL = "SELECT m.id, m.node_id, n.name, t.description, m.status, r.action_id, m.timestamp_snmp FROM node as n inner join history as m ON n.id = m.node_id inner join trap as t on t.id = m.trap_id inner join rules AS r ON m.trap_id = r.trap_id AND m.node_id = r.node_id where n.admin_id = " + admin_id + " AND m.status = true;";
             rs = stmt.executeQuery(SQL);
 
@@ -76,6 +77,7 @@ public class HistoryHandler {
 
         return history;
     }
+
     
     public void removeFromHistory(Integer history_id){
         try {
@@ -88,8 +90,7 @@ public class HistoryHandler {
         } catch (Exception e) {
             e.getMessage();
         }
-    
-    
+
     }
 
 }
