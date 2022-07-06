@@ -89,7 +89,7 @@
           </a>
         </li>
          <li class="nav-item">
-          <a class="nav-link text-white " href="traps.jsp">
+          <a class="nav-link text-white " href="nodes.jsp">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
             <i class="fas fa-database" aria-hidden="true"></i>
             </div>

@@ -27,7 +27,7 @@ public class NodeHandler {
 
     public static List<Node> getNodes() {
         ArrayList<Node> nodes = new ArrayList<Node>();
-        Node node = new Node();
+
         try {
 
             stmt = conn.createStatement();
@@ -35,6 +35,7 @@ public class NodeHandler {
             rs = stmt.executeQuery(SQL);
 
             while (rs.next()) {
+                Node node = new Node();
                 node.setName(rs.getString("name"));
                 node.setStatus(rs.getString("status"));
                 node.setNodeIp(rs.getString("ip"));
