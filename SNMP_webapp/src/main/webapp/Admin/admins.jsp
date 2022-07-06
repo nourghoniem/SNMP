@@ -41,43 +41,8 @@
     <%@include file="sidebar.jsp" %>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
-        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true" style="user-select: auto;">
-      <div class="container-fluid py-1 px-3" style="user-select: auto;">
-        <nav aria-label="breadcrumb" style="user-select: auto;">
-          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5" style="user-select: auto;">
-            <li class="breadcrumb-item text-sm" style="user-select: auto;"><a class="opacity-5 text-dark" href="javascript:;" style="user-select: auto;">Pages</a></li>
-            <li class="breadcrumb-item text-sm text-dark active" aria-current="page" style="user-select: auto;">Dashboard</li>
-          </ol>
-          <h6 class="font-weight-bolder mb-0" style="user-select: auto;">Hello nour</h6>
-        </nav>
-        <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar" style="user-select: auto;">
-          <div class="ms-md-auto pe-md-3 d-flex align-items-center" style="user-select: auto;">
-            
-          </div>
-          <ul class="navbar-nav  justify-content-end" style="user-select: auto;">
-            <li class="nav-item d-flex align-items-center" style="user-select: auto;">
-              <a href="pages/sign-in.html" class="nav-link text-body font-weight-bold px-0" style="user-select: auto;">
-                <i class="fa fa-user me-sm-1" aria-hidden="true" style="user-select: auto;"></i>
-                <span class="d-sm-inline d-none" style="user-select: auto;">Sign Out</span>
-              </a>
-            </li>
-            <li class="nav-item d-xl-none ps-3 d-flex align-items-center" style="user-select: auto;">
-              <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav" style="user-select: auto;">
-                <div class="sidenav-toggler-inner" style="user-select: auto;">
-                  <i class="sidenav-toggler-line" style="user-select: auto;"></i>
-                  <i class="sidenav-toggler-line" style="user-select: auto;"></i>
-                  <i class="sidenav-toggler-line" style="user-select: auto;"></i>
-                </div>
-              </a>
-            </li>
-            
-            
-          </ul>
-        </div>
-      </div>
-    </nav>
-        <div id="passing_history_id" style="display:none;"></div>
-        <div id="passing_history_trap" style="display:none;"></div>
+       
+       <%@include file="topbar.jsp" %>
         <!-- End Navbar -->
         <div class="container-fluid py-4">
            

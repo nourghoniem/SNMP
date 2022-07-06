@@ -8,8 +8,9 @@
 <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true" style="user-select: auto;">
       <div class="container-fluid py-1 px-3" style="user-select: auto;">
         <nav aria-label="breadcrumb" style="user-select: auto;">
-          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5" style="user-select: auto; visibility: hidden">
-         
+          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5" style="user-select: auto;visibility: hidden">
+            <li class="breadcrumb-item text-sm" style="user-select: auto;"><a class="opacity-5 text-dark" href="javascript:;" style="user-select: auto;">Pages mnvgnvn</a></li>
+            <li class="breadcrumb-item text-sm text-dark active" aria-current="page" style="user-select: auto;">Dashboard</li>
           </ol>
           <h6 class="font-weight-bolder mb-0" style="user-select: auto;">Hello nour</h6>
         </nav>
