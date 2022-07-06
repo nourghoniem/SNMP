@@ -10,6 +10,7 @@ package com.iti.snmp.history;
  */
 public class History {
     
+    private int history_id;
     private int node_id;
     private String node_name;
     private String trap_type;
@@ -19,7 +20,8 @@ public class History {
     
     public History(){}
 
-    public History(int node_id, String node_name, String trap_type, Boolean status, String action, String time_issued) {
+    public History(int history_id, int node_id, String node_name, String trap_type, Boolean status, String action, String time_issued) {
+        this.history_id = history_id;
         this.node_id = node_id;
         this.node_name = node_name;
         this.trap_type = trap_type;
@@ -75,10 +77,12 @@ public class History {
     public void setTime_issued(String time_issued) {
         this.time_issued = time_issued;
     }
-    
-    
-    
-    
-    
-    
+
+    public int getHistory_id() {
+        return history_id;
+    }
+
+    public void setHistory_id(int history_id) {
+        this.history_id = history_id;
+    } 
 }

@@ -33,20 +33,21 @@ public class TrapHandler {
         }
     }
     
-    public List<Trap> getTraps(){
+    public List<Trap> getTraps(Integer admin_id){
         traps = new ArrayList<Trap>();
            try {
             stmt = conn.createStatement();
-            String SQL = "SELECT m.node_id, n.name, n.ip, t.description, m.timestamp_snmp FROM node as n inner join history as m ON n.id = m.node_id inner join trap as t on t.id = m.trap_id where n.admin_id = 1 AND status = 'f';";
+            String SQL = "SELECT m.id, m.node_id, n.name, n.ip, t.description, m.timestamp_snmp FROM node as n inner join history as m ON n.id = m.node_id inner join trap as t on t.id = m.trap_id where n.admin_id = "+admin_id+" AND m.status = false;";
             rs = stmt.executeQuery(SQL);
 
             while (rs.next()) {
+                Integer history_id = rs.getInt("id");
                 Integer node_id = rs.getInt("node_id");
                 String node_name = rs.getString("name");
                 String ip = rs.getString("ip");
                 String trap_desc = rs.getString("description");
                 String trap_timestamp = rs.getString("timestamp_snmp");
-                Trap trap = new Trap(node_id, node_name, ip, trap_desc, trap_timestamp);
+                Trap trap = new Trap(history_id, node_id, node_name, ip, trap_desc, trap_timestamp);
                 traps.add(trap);
             }
         } catch (SQLException e) {
@@ -72,13 +73,11 @@ public class TrapHandler {
         return trap_id;
     }
     
-    public void updateStatus(int id, String trap_type){
+    public void updateStatus(int id){
          try {
-            Integer trap_id = getTrapid(trap_type);
-            pst = conn.prepareStatement("UPDATE history SET status=? where node_id = ? AND trap_id = ?");
+            pst = conn.prepareStatement("UPDATE history SET status=? where id = ?");
             pst.setBoolean(1, Boolean.TRUE);
             pst.setDouble(2, id);
-            pst.setInt(3, trap_id);
             int rows = pst.executeUpdate();
             pst.close();
             System.out.print(rows);

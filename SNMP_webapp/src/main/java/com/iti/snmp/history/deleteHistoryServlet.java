@@ -25,11 +25,8 @@ public class deleteHistoryServlet extends HttpServlet {
         resp.setContentType("text/html;charset=UTF-8");
         PrintWriter out = resp.getWriter();
         Integer id = Integer.parseInt(request.getParameter("id"));
-        String trap_type = request.getParameter("type");
-        TrapHandler trapHandler = new TrapHandler();
-        int trap_id = trapHandler.getTrapid(trap_type);
         HistoryHandler historyHandler = new HistoryHandler();
-        historyHandler.removeFromHistory(id, trap_id);
+        historyHandler.removeFromHistory(id);
         
     }
 }

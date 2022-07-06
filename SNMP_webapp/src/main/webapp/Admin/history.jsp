@@ -189,7 +189,7 @@
                                         %>
 
                                         <tr>
-                                            <td style="display:none;"><input type="hidden" value="<%out.println(t.getNode_id());%>" id="rows"/></td>
+                                            <td style="display:none;"><input type="hidden" value="<%out.println(t.getHistory_id());%>" id="rows"/></td>
                                             <td>
                                                 <div class="d-flex px-2 py-1">
 
@@ -212,19 +212,16 @@
                                                 <span class="text-secondary text-xs font-weight-bold"><%= t.getTime_issued()%></span>
                                             </td>
                                             <td class="align-middle">
-                                                <a onclick="clickHandler(<%=t.getNode_id()%>, '<%=t.getTrap_type()%>')" data-bs-toggle="modal" data-bs-target="#deleteStaffModal" class="btn btn-link text-danger text-gradient px-3 mb-0" href="#"><i class="material-icons text-sm me-2">delete</i>Delete</a>
+                                                <a onclick="clickHandler(<%=t.getHistory_id()%>)" data-bs-toggle="modal" data-bs-target="#deleteStaffModal" class="btn btn-link text-danger text-gradient px-3 mb-0" href="#"><i class="material-icons text-sm me-2">delete</i>Delete</a>
 
                                             </td>
 
                                         </tr>
                                     <script>
-                                        function clickHandler(id, type) {
+                                        function clickHandler(id) {
                                          
                                           $("#passing_history_id").html(id);
-                                          $("#passing_history_trap").html(type);
-                                      
-                                      
-                                 
+                                       
                                         }
 
                                     </script>
@@ -260,14 +257,13 @@
                             $("#deleteHistorySubmit").click(function (event) {
                                 event.preventDefault();
                                 var id = $("#passing_history_id").html();
-                                var type = $("#passing_history_trap").html();
+                               
                                 $.ajax({
                                     type: "POST",
                                     url: "${pageContext.request.contextPath}/deleteHistoryServlet",
                                     data: {
-                                        id: id,
-                                        type: type
-
+                                        id: id
+                                     
                                     },
                                     success: function (data) {
 

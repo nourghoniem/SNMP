@@ -7,8 +7,9 @@
 <%@page import="java.util.List"%>
 <%@page import="com.iti.snmp.traps.Trap"%>
 <%
+    Integer id = (Integer) session.getAttribute("adminId");
     TrapHandler trapHandler = new TrapHandler();
-    List<Trap> traps = trapHandler.getTraps();
+    List<Trap> traps = trapHandler.getTraps(id);
 %>
 <!DOCTYPE html>
 <html>
@@ -161,23 +162,23 @@
                             %>
                             <li class="list-group-item border-0 d-flex p-4 mb-2 mt-3 bg-gray-100 border-radius-lg">
                                 <div class="d-flex flex-column">
-                                    <input type="hidden" value="<%= t.getNode_id()%>" id="rows"/>
-                                    <input type="hidden" value="<%= t.getTrap_type()%>" id="types"/>
+                                    <input type="hidden" value="<%= t.getHistory_id()%>" id="rows"/>
+                         
                                     <h6 class="mb-3 text-sm"><%= t.getNode_name()%></h6>
                                     <span class="mb-2 text-xs">IP: <span class="text-dark font-weight-bold ms-sm-2"><%= t.getIp()%></span></span>
                                     <span class="mb-2 text-xs">Trap Description <span class="text-dark ms-sm-2 font-weight-bold"><%= t.getTrap_type()%></span></span>
                                     <span class="text-xs">Issued: <span class="text-dark ms-sm-2 font-weight-bold"><%= t.getTime_issued()%></span></span>
                                 </div>
                                 <div class="ms-auto text-end">
-                                    <a id="resolve_btn" onclick="clickHandler(<%=t.getNode_id()%>, '<%=t.getTrap_type() %>')" data-bs-toggle="modal" data-bs-target="#resolveStaffModal" class="btn btn-link text-success px-3 mb-0"  href="#"><i class="material-icons text-sm me-2">edit</i>Resolve</a>
+                                    <a id="resolve_btn" onclick="clickHandler(<%=t.getHistory_id()%>)" data-bs-toggle="modal" data-bs-target="#resolveStaffModal" class="btn btn-link text-success px-3 mb-0"  href="#"><i class="material-icons text-sm me-2">edit</i>Resolve</a>
 <!--                                    <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="javascript:;"><i class="material-icons text-sm me-2">delete</i>Delete</a>-->
                                 </div>
                             </li>
                             <script>
-                                function clickHandler(id, type) {
+                                function clickHandler(id) {
 
                                     $("#passing_id").html(id);
-                                    $("#passing_trap").html(type);
+                       
                                 }
 
                             </script>
@@ -211,13 +212,13 @@
                             $("#resolveTrapSubmit").click(function (event) {
                                 event.preventDefault();
                                 var id = $('#passing_id').html();
-                                var type = $('#passing_trap').html();
+                            
                                 $.ajax({
                                     type: "POST",
                                     url: "${pageContext.request.contextPath}/resolveTrapServlet",
                                     data: {
-                                        id: id,
-                                        type: type
+                                        id: id
+                                     
 
                                     },
                                     success: function (data) {
