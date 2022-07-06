@@ -4,6 +4,8 @@
  */
 package com.iti.snmp.traps;
 
+import com.iti.snmp.resolved.Resolved;
+import com.iti.snmp.resolved.ResolvedHandler;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -25,8 +27,9 @@ public class resolveTrapServlet extends HttpServlet {
         Integer id = Integer.parseInt(request.getParameter("id"));
         TrapHandler handler = new TrapHandler();
         handler.updateStatus(id);
-//        out.println(id);
-//        out.println(trap_type);
+        Resolved resolved = new Resolved(id);
+        ResolvedHandler resolvedHandler = new ResolvedHandler();
+        resolvedHandler.addResolved(resolved);
         
     }
 }
