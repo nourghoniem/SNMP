@@ -4,8 +4,7 @@
  */
 package com.iti.snmp.nodes;
 
-import com.iti.snmp.database.DatabaseConnection;
-import com.iti.snmp.traps.Trap;
+import com.iti.snmp.database.DatabaseManagement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,26 +19,19 @@ import java.util.List;
  */
 public class NodeHandler {
 
-    private Connection conn;
-    private Statement stmt;
-    private ResultSet rs;
-    private PreparedStatement pst;
-    private ArrayList<Trap> traps;
+    private static final DatabaseManagement db = new DatabaseManagement();
+    private static final Connection conn = db.getConn();
+    private static Statement stmt;
+    private static ResultSet rs;
+    private static PreparedStatement pst;
 
-    public NodeHandler() {
-        conn = DatabaseConnection.getConnection();
-        if (conn == null) {
-            System.out.println("database connection is null");
-        }
-    }
-
-    public List<Node> getNodes() {
+    public static List<Node> getNodes() {
         ArrayList<Node> nodes = new ArrayList<Node>();
         Node node = new Node();
         try {
 
             stmt = conn.createStatement();
-            String SQL = "select n.\"name\",n.ip,n.status,n.description,a.email from node n , public.\"admin\" a where a.id=n.admin_id  ";
+            String SQL = "select n.\"name\",n.ip,n.status,n.description,a.email from node n , public.\"admin\" a where a.id=n.admin_id   ";
             rs = stmt.executeQuery(SQL);
 
             while (rs.next()) {
@@ -58,9 +50,9 @@ public class NodeHandler {
         return nodes;
     }
 
-    public List<Node> getNodesByAdminId(int adminId) {
+    public static List<Node> getNodesByAdminId(int adminId) {
         ArrayList<Node> nodes = new ArrayList<Node>();
-        Node node = new Node();
+
         try {
 
             stmt = conn.createStatement();
@@ -68,12 +60,15 @@ public class NodeHandler {
             rs = stmt.executeQuery(SQL);
 
             while (rs.next()) {
+                Node node = new Node();
                 node.setName(rs.getString("name"));
                 node.setStatus(rs.getString("status"));
                 node.setNodeIp(rs.getString("ip"));
                 node.setDescription(rs.getString("description"));
                 node.setAdminName(rs.getString("email"));
+                nodes.add(node);
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -24,6 +24,10 @@
         <servlet-name>deleteHistoryServlet</servlet-name>
         <servlet-class>com.iti.snmp.history.deleteHistoryServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>NewServlet</servlet-name>
+        <servlet-class>Test</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>resolveTrapServlet</servlet-name>
         <url-pattern>/resolveTrapServlet</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>deleteHistoryServlet</servlet-name>
         <url-pattern>/deleteHistoryServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NewServlet</servlet-name>
+        <url-pattern>/NewServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

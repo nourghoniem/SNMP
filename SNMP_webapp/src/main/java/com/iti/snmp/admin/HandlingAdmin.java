@@ -21,9 +21,9 @@ public class HandlingAdmin {
 
     private static final DatabaseManagement db = new DatabaseManagement();
     private static Connection conn = db.getConn();
-    private Statement stmt;
-    private ResultSet rs;
-    private PreparedStatement pst;
+    private static Statement stmt;
+    private static ResultSet rs;
+    private static PreparedStatement pst;
 
     public static void RegisterAdmin(String username, String email, String password, String phoneNumber) throws SQLException {
         try {
@@ -87,9 +87,9 @@ public class HandlingAdmin {
         return admin;
     }
 
-    public List<Admin> getAdmins() {
+    public static List<Admin> getAdmins() {
         ArrayList<Admin> admins = new ArrayList<Admin>();
-        Admin admin = new Admin();
+
         try {
 
             stmt = conn.createStatement();
@@ -97,10 +97,12 @@ public class HandlingAdmin {
             rs = stmt.executeQuery(SQL);
 
             while (rs.next()) {
+                Admin admin = new Admin();
                 admin.setEmail(rs.getString("email"));
 
                 admin.setPhone(rs.getString("phone"));
                 admin.setName(rs.getString("name"));
+                admins.add(admin);
             }
         } catch (SQLException e) {
             e.printStackTrace();
