@@ -4,6 +4,8 @@
  */
 package com.iti.snmp.traps;
 
+import com.iti.snmp.resolved.Resolved;
+import com.iti.snmp.resolved.ResolvedHandler;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -23,11 +25,11 @@ public class resolveTrapServlet extends HttpServlet {
         resp.setContentType("text/html;charset=UTF-8");
         PrintWriter out = resp.getWriter();
         Integer id = Integer.parseInt(request.getParameter("id"));
-        String trap_type = request.getParameter("type");
         TrapHandler handler = new TrapHandler();
-        handler.updateStatus(id, trap_type);
-//        out.println(id);
-//        out.println(trap_type);
+        handler.updateStatus(id);
+        Resolved resolved = new Resolved(id);
+        ResolvedHandler resolvedHandler = new ResolvedHandler();
+        resolvedHandler.addResolved(resolved);
         
     }
 }

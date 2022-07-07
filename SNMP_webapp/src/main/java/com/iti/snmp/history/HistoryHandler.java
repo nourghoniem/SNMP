@@ -54,10 +54,12 @@ public class HistoryHandler {
         history = new ArrayList<History>();
         try {
             stmt = conn.createStatement();
-            String SQL = "SELECT m.node_id, n.name, t.description, m.status, r.action_id, m.timestamp_snmp FROM node as n inner join history as m ON n.id = m.node_id inner join trap as t on t.id = m.trap_id inner join rules AS r ON m.trap_id = r.trap_id AND m.node_id = r.node_id where n.admin_id = " + admin_id + " AND status =" + st + ";";
+
+            String SQL = "SELECT m.id, m.node_id, n.name, t.description, m.status, r.action_id, m.timestamp_snmp FROM node as n inner join history as m ON n.id = m.node_id inner join trap as t on t.id = m.trap_id inner join rules AS r ON m.trap_id = r.trap_id AND m.node_id = r.node_id where n.admin_id = " + admin_id + " AND m.status = true;";
             rs = stmt.executeQuery(SQL);
 
             while (rs.next()) {
+                Integer history_id = rs.getInt("id");
                 Integer node_id = rs.getInt("node_id");
                 String node_name = rs.getString("name");
                 String trap_desc = rs.getString("description");
@@ -66,7 +68,7 @@ public class HistoryHandler {
                 String trap_timestamp = rs.getString("timestamp_snmp");
                 String action_desc = getActionById(action_id);
 
-                History one = new History(node_id, node_name, trap_desc, status, action_desc, trap_timestamp);
+                History one = new History(history_id, node_id, node_name, trap_desc, status, action_desc, trap_timestamp);
                 history.add(one);
             }
         } catch (SQLException e) {
@@ -76,12 +78,12 @@ public class HistoryHandler {
         return history;
     }
 
-    public void removeFromHistory(Integer node_id, Integer trap_id) {
+    
+    public void removeFromHistory(Integer history_id){
         try {
-
-            pst = conn.prepareStatement("DELETE FROM history where node_id = ? AND trap_id = ?");
-            pst.setInt(1, node_id);
-            pst.setInt(2, trap_id);
+       
+            pst = conn.prepareStatement("DELETE FROM history where id = ?");
+            pst.setInt(1, history_id);
             int rows = pst.executeUpdate();
             pst.close();
             System.out.print(rows);

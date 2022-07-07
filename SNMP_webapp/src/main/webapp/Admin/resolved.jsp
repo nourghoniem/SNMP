@@ -1,18 +1,20 @@
 <%-- 
-    Document   : history
-    Created on : Jul 5, 2022, 4:16:30 PM
+    Document   : resolved
+    Created on : Jul 6, 2022, 10:30:27 PM
     Author     : nour
 --%>
 
+<%@page import="com.iti.snmp.resolved.Resolved"%>
+<%@page import="com.iti.snmp.resolved.ResolvedHandler"%>
 <%@page import="com.iti.snmp.history.History"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.List"%>
 <%@page import="com.iti.snmp.history.HistoryHandler"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-   
-    HistoryHandler historyHandler = new HistoryHandler();
-    List<History> history = historyHandler.getHistory(id,"t");
+    Integer id = (Integer) session.getAttribute("adminId");
+    ResolvedHandler resolvedHandler = new ResolvedHandler();
+    List<Resolved> resolved = resolvedHandler.getResolved(id);
 
 %>
 <!--
@@ -54,7 +56,7 @@
                     <div class="card my-4">
                         <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                             <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                                <h6 class="text-white text-capitalize ps-3">History</h6>
+                                <h6 class="text-white text-capitalize ps-3">Resolved Nodes</h6>
                             </div>
                         </div>
                         <div class="card-body px-0 pb-2">
@@ -66,17 +68,17 @@
                                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Node</th>
                                             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Trap</th>
                                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Status</th>
-                                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
+                                         
                                             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Issued</th>
-                                            <th class="text-secondary opacity-7"></th>
+                                            
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <%                                            for (History t : history) {
+                                        <%                                            for (Resolved t : resolved) {
                                         %>
 
                                         <tr>
-                                            <td style="display:none;"><input type="hidden" value="<%out.println(t.getHistory_id());%>" id="rows"/></td>
+                                            <td style="display:none;"><input type="hidden" value="<%out.println(t.getResolved_id());%>" id="rows"/></td>
                                             <td>
                                                 <div class="d-flex px-2 py-1">
 
@@ -86,32 +88,18 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <p class="text-xs font-weight-bold mb-0"><%= t.getTrap_type()%></p>
+                                                <p class="text-xs font-weight-bold mb-0"><%= t.getTrap_desc()%></p>
 
                                             </td>
                                             <td class="align-middle text-center text-sm">
                                                 <span class="badge badge-sm bg-gradient-success">RESOLVED</span>
                                             </td>
                                             <td class="align-middle text-center">
-                                                <span class="text-secondary text-xs font-weight-bold"><%= t.getAction()%></span>
-                                            </td>
-                                            <td class="align-middle text-center">
-                                                <span class="text-secondary text-xs font-weight-bold"><%= t.getTime_issued()%></span>
-                                            </td>
-                                            <td class="align-middle">
-                                                <a onclick="clickHandler(<%=t.getHistory_id()%>)" data-bs-toggle="modal" data-bs-target="#deleteStaffModal" class="btn btn-link text-danger text-gradient px-3 mb-0" href="#"><i class="material-icons text-sm me-2">delete</i>Delete</a>
-
+                                                <span class="text-secondary text-xs font-weight-bold"><%= t.getIssued_at()%></span>
                                             </td>
 
                                         </tr>
-                                    <script>
-                                        function clickHandler(id) {
-                                         
-                                          $("#passing_history_id").html(id);
-                                       
-                                        }
-
-                                    </script>
+                                   
                                     <% }%>
                                     </tbody>
                                 </table>
@@ -119,60 +107,7 @@
                         </div>
                     </div>
                 </div>
-                                                <!-- Modal -->
-            <div class="modal fade" id="deleteStaffModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Remove from History</h5>
-                           
-                        </div>
-                        <form action="" method= "POST">
-                            <div class="modal-body">
-                                <div>
-                                    Are you sure you want to delete this? This action cannot be undone.
-                                </div>
-                            </div>
-
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                <button type="submit" id="deleteHistorySubmit" name="deleteHistory" class="btn btn-danger">Delete</button>
-                            </div>
-                        </form>
-                        <script>
-
-                            $("#deleteHistorySubmit").click(function (event) {
-                                event.preventDefault();
-                                var id = $("#passing_history_id").html();
-                               
-                                $.ajax({
-                                    type: "POST",
-                                    url: "${pageContext.request.contextPath}/deleteHistoryServlet",
-                                    data: {
-                                        id: id
-                                     
-                                    },
-                                    success: function (data) {
-
-                                    },
-                                    error: function (resp) {
-                                        alert("Error");
-                                    }
-                                });
-                                $(document).ajaxStop(function () {
-                                    window.location.reload();
-                                });
-
-
-
-                            });
-
-                        </script>
-                    </div>
-                </div>
-            </div>
-            </div>
-
+           
             <footer class="footer py-4  ">
                 <div class="container-fluid">
                     <div class="row align-items-center justify-content-lg-between">
