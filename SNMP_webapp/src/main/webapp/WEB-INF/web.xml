@@ -28,6 +28,10 @@
         <servlet-name>NewServlet</servlet-name>
         <servlet-class>Test</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>NodesAction</servlet-name>
+        <servlet-class>com.iti.snmp.nodes.NodesAction</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>resolveTrapServlet</servlet-name>
         <url-pattern>/resolveTrapServlet</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>NewServlet</servlet-name>
         <url-pattern>/NewServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NodesAction</servlet-name>
+        <url-pattern>/NodesAction</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

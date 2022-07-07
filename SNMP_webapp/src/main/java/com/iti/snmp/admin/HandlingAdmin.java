@@ -87,6 +87,25 @@ public class HandlingAdmin {
         return admin;
     }
 
+    public static int getAdminId(String email) {
+        int id = 0;
+        try {
+
+            PreparedStatement stmt = conn.prepareStatement("SELECT id FROM admin where email=? ");
+            stmt.setString(1, email);
+
+            ResultSet res = stmt.executeQuery();
+            while (res.next()) {
+
+                id = res.getInt("id");
+            }
+        } catch (SQLException ex) {
+            System.err.println("error : " + ex);
+
+        }
+        return id;
+    }
+
     public static List<Admin> getAdmins() {
         ArrayList<Admin> admins = new ArrayList<Admin>();
 

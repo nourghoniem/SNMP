@@ -13,7 +13,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% TrapHandler th= new TrapHandler();
      Integer adId=(Integer)session.getAttribute("adminId");
-    String name=(String)session.getAttribute("name");
+  
     List<Node>nodes=NodeHandler.getNodesByAdminId(adId);
 %>
 <!--
@@ -135,7 +135,10 @@
               <div class="d-flex " style="user-select: auto;">
                 <i class="material-icons text-sm my-auto me-1" style="user-select: auto;"></i>
                 
-                <p class="mb-0 text-sm" style="user-select: auto;"><%=comment%> </p>
+                <a class="mb-0 text-sm" style="user-select: auto;" href="traps.jsp"
+                ><%=comment%> </a>
+               
+                    
               </div>
             </div>
           </div>

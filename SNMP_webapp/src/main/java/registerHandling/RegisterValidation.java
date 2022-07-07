@@ -33,7 +33,7 @@ public class RegisterValidation {
     }
 
     //Check confirm username requirment
-    static int isValidUsername(String username) {
+    public static int isValidUsername(String username) {
         int count = 0;
         for (int i = 0; i < username.length(); i++) {
             if (Character.isDigit(username.charAt(i))
@@ -142,4 +142,14 @@ public class RegisterValidation {
 
     }
 
+    public static boolean isValidIp(String ip) {
+        String IPV4_REGEX
+                = "^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\."
+                + "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\."
+                + "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\."
+                + "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$";
+        Pattern IPv4_PATTERN = Pattern.compile(IPV4_REGEX);
+        Matcher matcher = IPv4_PATTERN.matcher(ip);
+        return matcher.matches();
+    }
 }

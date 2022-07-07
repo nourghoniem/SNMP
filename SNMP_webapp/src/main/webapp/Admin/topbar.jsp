@@ -5,6 +5,10 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <%String name=(String)session.getAttribute("name");
+  
+  %>
 <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true" style="user-select: auto;">
       <div class="container-fluid py-1 px-3" style="user-select: auto;">
         <nav aria-label="breadcrumb" style="user-select: auto;">
@@ -12,7 +16,7 @@
             <li class="breadcrumb-item text-sm" style="user-select: auto;"><a class="opacity-5 text-dark" href="javascript:;" style="user-select: auto;">Pages mnvgnvn</a></li>
             <li class="breadcrumb-item text-sm text-dark active" aria-current="page" style="user-select: auto;">Dashboard</li>
           </ol>
-          <h6 class="font-weight-bolder mb-0" style="user-select: auto;">Hello nour</h6>
+          <h6 class="font-weight-bolder mb-0" style="user-select: auto;">Hello <%=name%></h6>
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar" style="user-select: auto;">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center" style="user-select: auto;">
