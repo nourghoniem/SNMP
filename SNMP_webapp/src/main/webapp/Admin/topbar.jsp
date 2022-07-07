@@ -24,7 +24,7 @@
           </div>
           <ul class="navbar-nav  justify-content-end" style="user-select: auto;">
             <li class="nav-item d-flex align-items-center" style="user-select: auto;">
-              <a href="pages/sign-in.html" class="nav-link text-body font-weight-bold px-0" style="user-select: auto;">
+              <a href="/SNMP_webapp/index.jsp" class="nav-link text-body font-weight-bold px-0" style="user-select: auto;">
                 <i class="fa fa-user me-sm-1" aria-hidden="true" style="user-select: auto;"></i>
                 <span class="d-sm-inline d-none" style="user-select: auto;">Sign Out</span>
               </a>
