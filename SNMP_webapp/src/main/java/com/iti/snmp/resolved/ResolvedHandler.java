@@ -77,6 +77,21 @@ public class ResolvedHandler {
 
         return resolved;
     }
+        
+    public void removeFromResolved(Integer history_id){
+        try {
+       
+            pst = conn.prepareStatement("DELETE FROM resolved where history_id = ?");
+            pst.setInt(1, history_id);
+            int rows = pst.executeUpdate();
+            pst.close();
+            System.out.print(rows);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     
     
     

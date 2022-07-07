@@ -5,6 +5,7 @@
 package com.iti.snmp.history;
 
 import com.iti.snmp.database.DatabaseConnection;
+import com.iti.snmp.resolved.ResolvedHandler;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -82,13 +83,15 @@ public class HistoryHandler {
     public void removeFromHistory(Integer history_id){
         try {
        
+            ResolvedHandler resolvedHandler = new ResolvedHandler();
+            resolvedHandler.removeFromResolved(history_id);
             pst = conn.prepareStatement("DELETE FROM history where id = ?");
             pst.setInt(1, history_id);
             int rows = pst.executeUpdate();
             pst.close();
             System.out.print(rows);
-        } catch (Exception e) {
-            e.getMessage();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
     }

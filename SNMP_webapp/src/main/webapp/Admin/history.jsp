@@ -43,7 +43,7 @@
         <!-- Navbar -->
    <%@include file="topbar.jsp" %>
         <div id="passing_history_id" style="display:none;"></div>
-        <div id="passing_history_trap" style="display:none;"></div>
+       
         <!-- End Navbar -->
         <div class="container-fluid py-4">
            
