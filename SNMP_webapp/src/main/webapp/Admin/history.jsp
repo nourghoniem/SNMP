@@ -10,7 +10,7 @@
 <%@page import="com.iti.snmp.history.HistoryHandler"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-   
+    Integer id = (Integer) session.getAttribute("adminId");
     HistoryHandler historyHandler = new HistoryHandler();
     List<History> history = historyHandler.getHistory(id,"t");
 
